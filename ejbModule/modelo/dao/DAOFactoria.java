@@ -2,6 +2,8 @@ package modelo.dao;
 
 import javax.ejb.Stateless;
 
+import modelo.dao.EJB.DAOFactoriaLocal;
+
 @Stateless(mappedName = "Factoria")
 public class DAOFactoria implements DAOFactoriaLocal {
 
@@ -27,20 +29,20 @@ public class DAOFactoria implements DAOFactoriaLocal {
 
 	public void getDAOFactoria(int tipo) throws DAOException {
 		switch (tipo) {
-		case JDBC: {
-			try {
-				factoria = new JDBCDAOFactoria();
-			} catch (Exception e) {
-				throw new DAOException(e.getMessage());
+			case JDBC: {
+				try {
+					factoria = new JDBCDAOFactoria();
+				} catch (Exception e) {
+					throw new DAOException(e.getMessage());
+				}
 			}
-		}
-		case JPA: {
-			try {
-				factoria = new JPADAOFactoria();
-			} catch (Exception e) {
-				throw new DAOException(e.getMessage());
+			case JPA: {
+				try {
+					factoria = new JPADAOFactoria();
+				} catch (Exception e) {
+					throw new DAOException(e.getMessage());
+				}
 			}
-		}
 		}
 	}
 

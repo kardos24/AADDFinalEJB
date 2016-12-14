@@ -4,30 +4,35 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
+
 import modelo.Catalogo;
 import modelo.Usuario;
 import modelo.dao.DAOException;
 import modelo.dao.DAOFactoria;
 import modelo.dao.UsuarioDAO;
+import modelo.dao.EJB.DAOFactoriaLocal;
 
-public class Controlador {
+@Stateful(mappedName = "ControladorEJB")
+public class ControladorEJB {
 
-	private static Controlador unicaInstancia = null;
-	private DAOFactoria factoria;
+	private Usuario usuarioActual = null;
 
-	private Controlador() {
-//		try {
-////			factoria = DAOFactoria.getDAOFactoria(DAOFactoria.JPA);
-//		} catch (DAOException e) {
-//			e.printStackTrace();
-//		}
-	}
+	@EJB(beanName = "Contador")
+	private Contador contador;
 
-	public static Controlador getInstance() {
-		if (unicaInstancia == null) {
-			unicaInstancia = new Controlador();
+	@EJB(beanName = "Factoria")
+	private DAOFactoriaLocal factoria;
+
+	@PostConstruct
+	public void configurarFactoria() {
+		try {
+			factoria.setDAOFactoria(DAOFactoria.JPA);
+		} catch (DAOException e) {
+			e.printStackTrace();
 		}
-		return unicaInstancia;
 	}
 
 	public boolean login(String usuario, String clave) {
@@ -35,9 +40,13 @@ public class Controlador {
 		try {
 			usuarioDAO = factoria.getUsuarioDAO();
 			Usuario usu = usuarioDAO.findByUsuario(usuario);
-			if (usu == null)
+			if (usu == null && !Objects.equals(usu.getClave(), clave))
 				return false;
-			return Objects.equals(usu.getClave(), clave);
+			else {
+				usuarioActual = usu;
+				System.out.println("Login correctos por Aplicacion:" + contador.siguienteValor());
+				return true;
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
@@ -53,10 +62,10 @@ public class Controlador {
 		} catch (DAOException e) {
 			return null;
 		}
-		
+
 	}
-	
-	public void addCatalogo(Usuario usuario, Catalogo catalogo){
+
+	public void addCatalogo(Usuario usuario, Catalogo catalogo) {
 
 		usuario.getCatalogos().add(catalogo);
 		try {
@@ -75,11 +84,11 @@ public class Controlador {
 		} catch (DAOException e) {
 			return new LinkedList<Catalogo>();
 		}
-		
-//		
-//		CatalogoDAO catalogoDAO = factoria.getCatalogoDAO();
-//		List<Catalogo> lista = catalogoDAO.findByUsuario(usuario);
-//		return lista;
+
+		//
+		// CatalogoDAO catalogoDAO = factoria.getCatalogoDAO();
+		// List<Catalogo> lista = catalogoDAO.findByUsuario(usuario);
+		// return lista;
 	}
 
 	public List<Usuario> recuperarUsuarios() {
@@ -90,7 +99,5 @@ public class Controlador {
 			return new LinkedList<Usuario>();
 		}
 	}
-
-
 
 }
