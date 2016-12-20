@@ -1,6 +1,5 @@
 package modelo;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,9 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Catalogo implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
+public class Catalogo {
+
 	@Id
 	private String nombre;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -25,13 +23,13 @@ public class Catalogo implements Serializable{
 	private String web;
 	private String url;
 
-	@ManyToMany
 	@OrderBy("nombre DESC")
+	@ManyToMany
 	private List<Categoria> categorias;
 	@ManyToOne
 	private Usuario usuario;
-	@OneToMany(mappedBy="catalogo")
-	private List<Item> items;
+	@OneToMany
+	private List<VideojuegoItem> items;
 
 	public Catalogo() {
 	}
@@ -95,15 +93,15 @@ public class Catalogo implements Serializable{
 		this.usuario = usuario;
 	}
 
-	public List<Item> getItems() {
+	public List<VideojuegoItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<Item> items) {
+	public void setItems(List<VideojuegoItem> items) {
 		this.items = items;
 	}
 	
-	public void addItem(Item item){
+	public void addItem(VideojuegoItem item){
 		items.add(item);
 	}
 

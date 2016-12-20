@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 
 import modelo.dao.EJB.DAOFactoriaLocal;
 
-@Stateless(mappedName = "Factoria")
+@Stateless(name = "Factoria")
 public class DAOFactoria implements DAOFactoriaLocal {
 
 	protected DAOFactoria factoria = null;
@@ -27,7 +27,7 @@ public class DAOFactoria implements DAOFactoriaLocal {
 	public final static int JPA = 2;
 	public final static int MYSQL = 1;
 
-	public void getDAOFactoria(int tipo) throws DAOException {
+	public void setDAOFactoria(int tipo) throws DAOException {
 		switch (tipo) {
 			case JDBC: {
 				try {
@@ -46,9 +46,5 @@ public class DAOFactoria implements DAOFactoriaLocal {
 		}
 	}
 
-	@Override
-	public void setDAOFactoria(int tipo) throws DAOException {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

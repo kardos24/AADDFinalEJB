@@ -16,7 +16,7 @@ import modelo.dao.UsuarioDAO;
 import modelo.dao.EJB.DAOFactoriaLocal;
 
 @Stateful(mappedName = "ControladorEJB")
-public class ControladorEJB {
+public class ControladorEJB implements ControladorEJBRemote{
 
 	private Usuario usuarioActual = null;
 
@@ -40,7 +40,7 @@ public class ControladorEJB {
 		try {
 			usuarioDAO = factoria.getUsuarioDAO();
 			Usuario usu = usuarioDAO.findByUsuario(usuario);
-			if (usu == null && !Objects.equals(usu.getClave(), clave))
+			if (usu == null || !Objects.equals(usu.getClave(), clave))
 				return false;
 			else {
 				usuarioActual = usu;
