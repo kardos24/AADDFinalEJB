@@ -100,4 +100,10 @@ public class ControladorEJB implements ControladorEJBRemote{
 		}
 	}
 
+	public void setUsuarioActivo(String usuario){
+		
+	}
+	
+	List<Catalogo> recuperarCatalogosUsuarioActivo();
+
 }

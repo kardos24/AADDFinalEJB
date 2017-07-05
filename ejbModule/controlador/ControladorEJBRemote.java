@@ -14,4 +14,5 @@ public interface ControladorEJBRemote {
 	void addCatalogo(Usuario usuario, Catalogo catalogo);
 	List<Catalogo> recuperarCatalogosPorUsuario(String usuario) ;
 	List<Usuario> recuperarUsuarios();
+	List<Catalogo> recuperarCatalogosUsuarioActivo();
 }
