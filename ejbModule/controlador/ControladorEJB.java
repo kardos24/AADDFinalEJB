@@ -16,7 +16,7 @@ import modelo.dao.UsuarioDAO;
 import modelo.dao.EJB.DAOFactoriaLocal;
 
 @Stateful(mappedName = "ControladorEJB")
-public class ControladorEJB implements ControladorEJBRemote{
+public class ControladorEJB implements ControladorEJBRemote {
 
 	private Usuario usuarioActual = null;
 
@@ -53,8 +53,7 @@ public class ControladorEJB implements ControladorEJBRemote{
 		return false;
 	}
 
-	public Usuario registrar(String nif, String nombre, String usuario,
-			String clave, String email) {
+	public Usuario registrar(String nif, String nombre, String usuario, String clave, String email) {
 		UsuarioDAO usuarioDAO;
 		try {
 			usuarioDAO = factoria.getUsuarioDAO();
@@ -84,11 +83,6 @@ public class ControladorEJB implements ControladorEJBRemote{
 		} catch (DAOException e) {
 			return new LinkedList<Catalogo>();
 		}
-
-		//
-		// CatalogoDAO catalogoDAO = factoria.getCatalogoDAO();
-		// List<Catalogo> lista = catalogoDAO.findByUsuario(usuario);
-		// return lista;
 	}
 
 	public List<Usuario> recuperarUsuarios() {
@@ -100,10 +94,11 @@ public class ControladorEJB implements ControladorEJBRemote{
 		}
 	}
 
-	public void setUsuarioActivo(String usuario){
-		
+	public List<Catalogo> recuperarCatalogosUsuarioActivo() {
+		if (usuarioActual != null)
+			return recuperarCatalogosPorUsuario(usuarioActual.getUsuario());
+		else
+			return null;
 	}
-	
-	List<Catalogo> recuperarCatalogosUsuarioActivo();
 
 }
