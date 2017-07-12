@@ -22,6 +22,11 @@ public class DAOFactoria implements DAOFactoriaLocal {
 		return factoria.getCatalogoDAO();
 	}
 
+	@Override
+	public VideojuegoDAO getVideojuegoDAO() {
+		return factoria.getVideojuegoDAO();
+	}
+
 	// Declaracion como constantes de los tipos de factoria
 	public final static int JDBC = 1;
 	public final static int JPA = 2;

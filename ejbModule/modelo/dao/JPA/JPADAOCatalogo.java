@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 
 import modelo.Catalogo;
 import modelo.Usuario;
+import modelo.VideojuegoItem;
 import modelo.dao.CatalogoDAO;
 import modelo.dao.DAOException;
 
@@ -37,6 +38,19 @@ public class JPADAOCatalogo implements CatalogoDAO {
 	public Catalogo findByNombre(String nombre) throws DAOException {
 		Catalogo catJPA = em.find(Catalogo.class, nombre);
 		return catJPA;
+	}
+
+	@Override
+	public void delete(String idCatalogo) throws DAOException {
+		try {
+			Integer id = Integer.decode(idCatalogo);
+			em.getTransaction().begin();
+			Catalogo cat = em.find(Catalogo.class, id);
+			em.remove(cat);
+			em.getTransaction().commit();
+		} catch (Exception ex) {
+			throw new DAOException(ex.getMessage());
+		}		
 	}
 
 }

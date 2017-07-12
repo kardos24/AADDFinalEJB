@@ -57,4 +57,10 @@ public class JDBCCatalogoDAO implements CatalogoDAO {
 		}
 	}
 
+	@Override
+	public void delete(String idCatalogo) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
