@@ -5,10 +5,6 @@
 
 	<persistence-unit name="PracticaAADDFinal" transaction-type="RESOURCE_LOCAL">
 	<!-- <jta-data-source>java:comp/env/jdbc/AADD_JPA</jta-data-source> -->
-		<class>modelo.Usuario</class> 
-		<class>modelo.Catalogo</class>
-		<class>modelo.Categoria</class>
-		<class>modelo.VideojuegoItem</class>
 
 		<properties>
 	

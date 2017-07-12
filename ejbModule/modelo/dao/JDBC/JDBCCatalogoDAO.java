@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import controlador.ControladorEJB;
 import modelo.Catalogo;
 import modelo.Usuario;
 import modelo.dao.CatalogoDAO;

@@ -33,6 +33,7 @@ public class DAOFactoria implements DAOFactoriaLocal {
 	public final static int MYSQL = 1;
 
 	public void setDAOFactoria(int tipo) throws DAOException {
+		System.out.println("DAOFactoria.setDAOFactoria()");
 		switch (tipo) {
 			case JDBC: {
 				try {
