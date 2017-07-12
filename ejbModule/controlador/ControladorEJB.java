@@ -12,8 +12,6 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
-import javax.persistence.PersistenceContext;
-
 import modelo.Catalogo;
 import modelo.Categoria;
 import modelo.Usuario;
@@ -160,8 +158,8 @@ public class ControladorEJB implements ControladorEJBRemote {
 	public void registrarCatalogo(String nombreCatalogo, String[] selectedCategorys) {
 		try {
 			Catalogo cate = factoria.getCatalogoDAO().create(nombreCatalogo, new Date(), "", "", usuarioActual);
-			cate.setCategorias(Arrays.asList(selectedCategorys).stream().map(s->getCategoria(s)).filter(c -> c != null).collect(Collectors.toList()));
-			cate.setItems(getVideojuegos().stream().filter(j -> j.contieneCategoria(cate.getCategorias())).collect(Collectors.toList()));
+//			cate.setCategorias(Arrays.asList(selectedCategorys).stream().map(s->getCategoria(s)).filter(c -> c != null).collect(Collectors.toList()));
+//			cate.setItems(getVideojuegos().stream().filter(j -> j.contieneCategoria(cate.getCategorias())).collect(Collectors.toList()));
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
@@ -185,8 +183,8 @@ public class ControladorEJB implements ControladorEJBRemote {
 
 	@Override
 	public void establecerCategoriasCatalogo(String[] selectedCategorys) {
-		catalogoActual.setCategorias(Arrays.asList(selectedCategorys).stream().map(s->getCategoria(s)).filter(c -> c != null).collect(Collectors.toList()));
-		catalogoActual.setItems(getVideojuegos().stream().filter(j -> j.contieneCategoria(catalogoActual.getCategorias())).collect(Collectors.toList()));
+//		catalogoActual.setCategorias(Arrays.asList(selectedCategorys).stream().map(s->getCategoria(s)).filter(c -> c != null).collect(Collectors.toList()));
+//		catalogoActual.setItems(getVideojuegos().stream().filter(j -> j.contieneCategoria(catalogoActual.getCategorias())).collect(Collectors.toList()));
 	}
 
 	@Override
